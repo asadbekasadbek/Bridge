@@ -1,0 +1,81 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Bridge · демонстрация интерфейса</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f6f5f0;color:#182238;font:16px Arial,sans-serif}header{height:76px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #deded7}.brand{display:flex;align-items:center;gap:11px;font-size:25px;letter-spacing:-1px;font-weight:700}.brand img{width:36px;height:36px}.demo-label{font-size:12px;color:#737a87}main{margin:24px 64px}.html5-video-player{height:596px;position:relative;overflow:hidden;background:#21494b}video{position:absolute;width:100%;height:100%;opacity:.01}.scene{position:absolute;inset:0;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTUyIiBoZWlnaHQ9IjU5NiIgdmlld0JveD0iMCAwIDExNTIgNTk2Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjZjJiOWE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZTZkOWJlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjExNTIiIGhlaWdodD0iNTk2IiBmaWxsPSJ1cmwoI3NreSkiLz48Y2lyY2xlIGN4PSI5MDQiIGN5PSIxMTQiIHI9IjQ4IiBmaWxsPSIjZmZmMmQwIi8+PHBhdGggZD0iTTAgNDI4TDIyMiAxNzJsMTQzIDE5NyAxMTQtMTQ3IDI2NSAyOTJMOTYwIDIzMGwxOTIgMjAyVjU5NkgwIiBmaWxsPSIjODQ5MjkzIi8+PHBhdGggZD0iTTAgNDc1TDI2MSAzMjNsMjA1IDE5MSAyODAtMjA4IDQwNiAyMTdWNTk2SDAiIGZpbGw9IiMzZDYyNjQiLz48cGF0aCBkPSJNMCA1NTBxMzEwLTE3MCA1ODYtMTh0NTY2LTQwdjEwNEgwIiBmaWxsPSIjMjE0OTRiIi8+PHBhdGggZD0iTTAgNTk2cTMyMC0xNjAgNTk3LTU1dDU1NS0xNHY2OSIgZmlsbD0iIzE2M2E0MCIvPjxnIG9wYWNpdHk9Ii40NSIgZmlsbD0iIzBiMmUzNyI+PHBhdGggZD0iTTEwNDAgMTk4bC0yNyA3OGgxN2wtMzIgNzhoODNsLTMzLTc4aDE4eiIvPjxwYXRoIGQ9Ik0xMDk1IDI1NGwtMzAgODloMThsLTM1IDg3aDk1bC0zNS04N2gxOHoiLz48L2c+PC9zdmc+');background-size:cover}.scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#163a4088,transparent 65%)}.lesson{position:absolute;left:48px;top:70px;color:#fff;text-shadow:0 2px 16px #102d3155}.lesson p{font-size:12px;letter-spacing:3px;font-weight:700}.lesson h1{font-size:49px;line-height:1.08;letter-spacing:-2px;margin:20px 0;max-width:580px}.lesson span{font-size:15px;opacity:.9}.ytp-right-controls{position:absolute;bottom:0;right:16px;height:54px;display:flex;align-items:center;gap:8px;z-index:2}.player-bottom{position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(transparent,#081e2bca)}.fixture-control{height:32px;border:0;background:transparent;color:#fff;font-size:20px}.ytp-caption-window-container{position:absolute;bottom:95px;width:100%;text-align:center;pointer-events:none}.ytp-caption-segment{display:inline-block;max-width:83%;padding:11px 18px;background:#102230d9;color:#fff;font-size:22px;line-height:1.4}.below{display:flex;justify-content:space-between;align-items:center;margin-top:18px}.below strong{font-size:17px;font-weight:500}.below span{font-size:12px;color:#67707b}.ytp-settings-menu{color:white}
+</style></head><body><header><div class="brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTIiIGZpbGw9IiMzODU2RjYiLz48cGF0aCBkPSJNMTAgMjZWMTdtMjAgOVYxN00xMCAyM2MzLTEwIDE3LTEwIDIwIDBNOCAyN2gyNCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyLjciIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xNyAyNnYtNG02IDR2LTQiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMi4zIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4K" alt="">Bridge</div><div class="demo-label">Демонстрационный ролик · настоящий интерфейс расширения</div></header><main><div id="movie_player" class="html5-video-player"><video muted autoplay loop playsinline></video><div class="scene"></div><div class="lesson"><p>СЛУШАЙТЕ В СВОЁМ РИТМЕ</p><h1>Меньше чтения.<br>Больше понимания.</h1><span>Доступные субтитры — выбранным голосом.</span></div><div class="ytp-caption-window-container" style="visibility:hidden"></div><div class="player-bottom"></div><div class="ytp-right-controls"><button class="fixture-control ytp-subtitles-button" aria-label="Субтитры" aria-pressed="false">CC</button><button class="fixture-control" aria-label="Настройки">⚙</button><button class="fixture-control" aria-label="Полный экран">⛶</button></div></div><div class="below"><strong>Субтитры становятся голосом</strong><span>Для работы нужны доступные текстовые дорожки</span></div></main><script>
+  const gear = document.querySelector('[aria-label="Настройки"]');
+  gear.classList.add("ytp-settings-button");
+  gear.setAttribute("aria-expanded", "false");
+  const menu = document.createElement("div");
+  menu.className = "ytp-settings-menu";
+  menu.style.cssText = "display:none;position:absolute;right:20px;bottom:70px;background:#222b40;padding:16px;z-index:5";
+  document.querySelector("#movie_player").append(menu);
+  const scenario = new URL(location.href).searchParams.get("v");
+  const originalLanguage = scenario === "russian_source" ? "ru" : scenario === "korean_source" ? "ko" : "en";
+  const originalLabel = originalLanguage === "ru" ? "Русский" : originalLanguage === "ko" ? "Корейский (создано автоматически)" : "English";
+  let selected = originalLabel;
+  document.documentElement.dataset.captionLanguage = originalLanguage;
+  const metadata = document.createElement("script");
+  metadata.textContent = "var ytInitialPlayerResponse = " + JSON.stringify({
+    videoDetails: { videoId: new URL(location.href).searchParams.get("v") },
+    captions: { playerCaptionsTracklistRenderer: {
+      captionTracks: [{ languageCode: originalLanguage, name: { simpleText: originalLabel }, kind: "asr", isTranslatable: true }],
+      audioTracks: [{ captionTrackIndices: [0] }], defaultAudioTrackIndex: 0,
+      translationLanguages: [{ languageCode: "ru" }, { languageCode: "en" }, { languageCode: "de" }]
+    } }
+  }) + ";";
+  document.head.append(metadata);
+  const row = (label, action, radio = false) => {
+    const element = document.createElement("div"); element.className = "ytp-menuitem";
+    element.style.cssText = "padding:8px;cursor:pointer";
+    element.setAttribute("role", radio ? "menuitemradio" : "menuitem");
+    if (radio) element.setAttribute("aria-checked", String(label === selected));
+    const text = document.createElement("div"); text.className = "ytp-menuitem-label"; text.textContent = label;
+    element.append(text); element.addEventListener("click", action); return element;
+  };
+  function panel(title) {
+    menu.replaceChildren();
+    const element = document.createElement("div"); element.className = "ytp-panel";
+    if (title) { const heading = document.createElement("div"); heading.className = "ytp-panel-title"; heading.textContent = title; element.append(heading); }
+    menu.append(element); return element;
+  }
+  function rootMenu() {
+    const element = panel("");
+    const captions = row("Субтитры", tracksMenu);
+    const content = document.createElement("div"); content.className = "ytp-menuitem-content"; content.textContent = selected;
+    captions.append(content); element.append(captions);
+  }
+  function choose(label, language, translated = false) {
+    selected = translated ? `${originalLabel} >> ${label}` : label;
+    document.documentElement.dataset.captionLanguage = language;
+    rootMenu();
+  }
+  function tracksMenu() {
+    const element = panel("Субтитры");
+    element.append(row(selected, () => {}, true));
+    if (selected !== originalLabel) element.append(row(originalLabel, () => choose(originalLabel, originalLanguage), true));
+    if (document.documentElement.dataset.directRussian === "true") element.append(row("Русский", () => choose("Русский", "ru"), true));
+    if (scenario === "korean_source") element.append(row("Русский (создано автоматически)", () => choose("Русский (создано автоматически)", "ru"), true));
+    const translateLabel = new URL(location.href).searchParams.get("v") === "legacy_translation" ? "Автоперевод" : "Перевести";
+    if (document.documentElement.dataset.noTranslation !== "true") element.append(row(translateLabel, () => {
+      document.documentElement.dataset.translationMenuOpens = String(Number(document.documentElement.dataset.translationMenuOpens || 0) + 1);
+      const languages = panel(translateLabel);
+      for (const [label, language] of [["Русский", "ru"], ["Deutsch", "de"], ["Español", "es"], ["English", "en"], ["O‘zbekcha", "uz"]]) {
+        if (document.documentElement.dataset.missingRussian === "true" && language === "ru") continue;
+        languages.append(row(label, () => choose(label, language, true), true));
+      }
+    }));
+  }
+  gear.addEventListener("click", () => {
+    const open = gear.getAttribute("aria-expanded") !== "true";
+    gear.setAttribute("aria-expanded", String(open));
+    menu.style.display = open ? "block" : "none";
+    if (open) rootMenu();
+  });
+  document.documentElement.dataset.captionClicks = "0";
+  document.querySelector(".ytp-subtitles-button").addEventListener("click", (event) => {
+    const button = event.currentTarget;
+    const on = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", String(on));
+    document.querySelector(".ytp-caption-window-container").style.visibility = on ? "visible" : "hidden";
+    document.documentElement.dataset.captionClicks = String(Number(document.documentElement.dataset.captionClicks) + 1);
+  });
+</script></body></html>

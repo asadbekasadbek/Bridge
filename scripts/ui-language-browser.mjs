@@ -1,0 +1,101 @@
+import assert from "node:assert/strict";
+import { createRequire } from "node:module";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { createSpeechFixture } from "./speech-fixture.mjs";
+import { DEFAULT_SETTINGS } from "../extension/shared/preferences.js";
+
+const require = createRequire(import.meta.url);
+const { chromium } = require(require.resolve("playwright", { paths: [process.env.BRIDGE_PLAYWRIGHT_ROOT || process.cwd()] }));
+const directory = await mkdtemp(join(tmpdir(), "bridge-ui-language-")), output = new URL("../test-results/", import.meta.url);
+let context;
+try {
+  const extension = await createSpeechFixture(fileURLToPath(new URL("../extension/", import.meta.url)), join(directory, "extension"));
+  const launch = () => chromium.launchPersistentContext(join(directory, "profile"), {
+    channel: "chromium", headless: true, viewport: { width: 1280, height: 1000 },
+    args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`, "--no-first-run", "--mute-audio"]
+  });
+  context = await launch();
+  const errors = [];
+  context.on("page", page => page.on("pageerror", error => errors.push(error.message)));
+  const worker = context.serviceWorkers()[0] || await context.waitForEvent("serviceworker");
+  const id = new URL(worker.url()).host;
+  await worker.evaluate(async settings => {
+    await chrome.storage.local.set({ bridgeSettings: settings });
+    globalThis.uiSpeech = []; globalThis.uiStops = 0;
+    chrome.tts.getVoices = callback => callback([{ voiceName: "Milena", lang: "ru-RU", gender: "female", remote: false }]);
+    chrome.tts.stop = () => { globalThis.uiStops++; };
+    chrome.tts.speak = (text, options, callback) => { globalThis.uiSpeech.push(text); globalThis.uiEnd = () => options.onEvent({ type: "end" }); callback(); options.onEvent({ type: "start" }); };
+  }, { ...DEFAULT_SETTINGS, sourceLanguage: "ko-KR", language: "ru-RU", voiceName: "Bridge — Денис (локальный)" });
+  const options = await context.newPage(); await options.goto(`chrome-extension://${id}/options.html`);
+  await options.locator("#settings-fields:not([disabled])").waitFor();
+  const fixture = await readFile(new URL("../tests/fixtures/youtube.html", import.meta.url), "utf8");
+  await context.route("https://www.youtube.com/**", route => route.fulfill({ contentType: "text/html", body: fixture }));
+  const page = await context.newPage(); await page.goto("https://www.youtube.com/watch?v=korean_source");
+  const wav = Buffer.alloc(44 + 16000 * 120);
+  wav.write("RIFF"); wav.writeUInt32LE(wav.length - 8, 4); wav.write("WAVEfmt ", 8); wav.writeUInt32LE(16, 16);
+  wav.writeUInt16LE(1, 20); wav.writeUInt16LE(1, 22); wav.writeUInt32LE(8000, 24); wav.writeUInt32LE(16000, 28);
+  wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write("data", 36); wav.writeUInt32LE(wav.length - 44, 40);
+  await page.locator(".bridge-youtube-toggle:not([disabled])").waitFor();
+  await page.evaluate(async source => { const video = document.querySelector("video"); video.src = source; await video.play(); }, `data:audio/wav;base64,${wav.toString("base64")}`);
+  await page.locator(".bridge-youtube-toggle").click();
+  await page.waitForFunction(() => document.querySelector("#bridge-youtube-status").textContent.includes("Ждём"));
+  assert.ok(Number(await page.locator("html").getAttribute("data-translation-menu-opens")) >= 1, "Должен выбираться перевод корейской дорожки, а не русская ASR");
+  const caption = text => page.evaluate(text => {
+    const span = document.createElement("span"); span.className = "ytp-caption-segment"; span.textContent = text;
+    document.querySelector(".ytp-caption-window-container").replaceChildren(span);
+  }, text);
+  await caption("Русский (создано автоматически)"); await page.waitForTimeout(900);
+  assert.equal((await worker.evaluate(() => globalThis.uiSpeech)).length, 0, "Служебная подпись не должна произноситься");
+  await page.evaluate(() => {
+    document.querySelector(".ytp-caption-window-container").replaceChildren();
+    const track = document.querySelector("video").addTextTrack("captions", "Korean", "ko");
+    track.addCue(new VTTCue(0, 120, "원본 한국어 자막입니다.")); track.mode = "showing";
+  });
+  await page.waitForTimeout(850);
+  assert.equal((await worker.evaluate(() => globalThis.uiSpeech)).length, 0, "Исходный native TextTrack не подменяет выбранный перевод");
+  await caption("Это настоящий переведённый текст.");
+  for (let i = 0; i < 100 && (await worker.evaluate(() => globalThis.uiSpeech)).length === 0; i++) await page.waitForTimeout(30);
+  assert.match((await worker.evaluate(() => globalThis.uiSpeech))[0], /настоящий переведённый/);
+  await page.locator(".bridge-language-settings").click();
+  const stops = await worker.evaluate(() => globalThis.uiStops);
+  await page.locator("#bridge-ui-language").selectOption("en");
+  await page.getByText("Bridge settings", { exact: true }).waitFor();
+  await options.getByRole("heading", { name: "Set up your voice" }).waitFor();
+  assert.equal(await page.locator("#bridge-source-language").inputValue(), "ko-KR");
+  assert.equal(await page.locator("#bridge-target-language").inputValue(), "ru-RU");
+  assert.equal(await page.locator("html").getAttribute("lang"), "ru", "Bridge не меняет язык самого сайта");
+  assert.equal(await page.locator(".ytp-caption-segment").innerText(), "Это настоящий переведённый текст.");
+  assert.equal(await worker.evaluate(() => globalThis.uiStops), stops, "Язык интерфейса не прерывает речь");
+  assert.equal(await page.locator(".bridge-youtube-toggle").getAttribute("aria-pressed"), "true");
+  const sample = await options.locator("#sample").inputValue();
+  await options.locator("#ui-language").selectOption("uz");
+  await page.getByText("Bridge sozlamalari", { exact: true }).waitFor();
+  await options.getByRole("heading", { name: "Ovozingizni sozlaymiz" }).waitFor();
+  assert.equal(await options.locator("#sample").inputValue(), sample, "Тестовый текст голоса не переводится вместе с UI");
+  await options.reload(); await options.getByRole("heading", { name: "Ovozingizni sozlaymiz" }).waitFor();
+  assert.equal(await options.locator("#ui-language").inputValue(), "uz");
+  assert.equal(await options.locator("#language").inputValue(), "ru-RU");
+  await options.locator("#ui-language").selectOption("en"); await page.getByText("Bridge settings", { exact: true }).waitFor();
+  await mkdir(output, { recursive: true });
+  await page.locator("#bridge-language-panel").screenshot({ path: fileURLToPath(new URL("ui-language-english.png", output)) });
+  await options.screenshot({ path: fileURLToPath(new URL("ui-language-options.png", output)) });
+  const popup = await context.newPage(); await popup.goto(`chrome-extension://${id}/popup.html`);
+  await popup.getByText("Preview voice", { exact: false }).waitFor();
+  assert.equal(await popup.locator("[data-bridge-ui-language]").inputValue(), "en");
+  await context.close(); context = await launch();
+  const restored = await context.newPage(); restored.on("pageerror", error => errors.push(error.message));
+  await restored.goto(`chrome-extension://${id}/options.html`);
+  await restored.getByRole("heading", { name: "Set up your voice" }).waitFor();
+  assert.equal(await restored.locator("#ui-language").inputValue(), "en");
+  assert.equal(await restored.locator("#source-language").inputValue(), "ko-KR");
+  assert.equal(await restored.locator("#language").inputValue(), "ru-RU");
+  const restoredWorker = context.serviceWorkers()[0] || await context.waitForEvent("serviceworker");
+  assert.equal(await restoredWorker.evaluate(() => chrome.action.getTitle({})), "Bridge — voice settings");
+  assert.deepEqual(errors, []);
+  const report = { uiLanguages: ["ru", "en", "uz"], independentFromVideoAndVoice: true, noSpeechInterruption: true, savedAcrossReload: true, savedAcrossBrowserRestart: true, popupLocalized: true, koreanSourceTranslatedInsteadOfRussianASR: true, trackNoticeNotSpoken: true, nativeSourceFallbackRejected: true, sampleUnchanged: true, errors };
+  await writeFile(new URL("ui-language-browser.json", output), JSON.stringify(report, null, 2) + "\n");
+  console.log(JSON.stringify(report, null, 2));
+} finally { await context?.close(); await rm(directory, { recursive: true, force: true }); }

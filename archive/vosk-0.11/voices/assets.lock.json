@@ -1,0 +1,54 @@
+{
+  "model": "Vosk-TTS ru 0.10 / vlapky browser fp16",
+  "source": "https://huggingface.co/vlapky/vosk-tts-ru-0.10-webgpu-fp16/tree/647c742e05330546bf483e3ae5f5b325f9902f05",
+  "revision": "647c742e05330546bf483e3ae5f5b325f9902f05",
+  "runtime": "onnxruntime-web@1.30.0",
+  "frontend": "vosk-tts-web@1.0.0 (adapted)",
+  "files": [
+    {
+      "path": "voices/ru/config.json",
+      "bytes": 3105,
+      "sha256": "55ad317934ac2ec40b4a9f56ee0792b0f0a3718767e49934fe8d89aae8b37546"
+    },
+    {
+      "path": "voices/ru/vocab.txt",
+      "bytes": 1780720,
+      "sha256": "bbe5063cc3d7a314effd90e9c5099cf493b81f2b9552c155264e16eeab074237"
+    },
+    {
+      "path": "voices/ru/dictionary.txt.gz",
+      "bytes": 15704397,
+      "sha256": "6a96066c09378e30449c1275bfa242313a463a4e2259ba00190dafb60afef340"
+    },
+    {
+      "path": "voices/ru/bert_u8.onnx",
+      "bytes": 164195802,
+      "sha256": "2ab1e19ada8d6eede456edbcd52c621096b2a255731e05eb98eafac2065d1f31"
+    },
+    {
+      "path": "voices/ru/part_a.onnx",
+      "bytes": 907169,
+      "sha256": "a965982f04ac1af29bd1ad5299fb433df0c696baa592c1071d8da89db0509865"
+    },
+    {
+      "path": "voices/ru/part_b_fp16.onnx",
+      "bytes": 115690308,
+      "sha256": "a9743405fa73c63f10422513ffd0b822ce2c6ef2a75fe55265b74a76685696ce"
+    },
+    {
+      "path": "vendor/ort/ort.wasm.min.mjs",
+      "bytes": 50126,
+      "sha256": "219e6a1fc8a9938268d18efca3c91d310bd2f4a59bbd13744df5b2b7fc6cee3b"
+    },
+    {
+      "path": "vendor/ort/ort-wasm-simd-threaded.mjs",
+      "bytes": 24381,
+      "sha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b"
+    },
+    {
+      "path": "vendor/ort/ort-wasm-simd-threaded.wasm",
+      "bytes": 14239897,
+      "sha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+    }
+  ]
+}

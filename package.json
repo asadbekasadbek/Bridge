@@ -1,0 +1,16 @@
+{
+  "name": "bridge-youtube-voice",
+  "version": "0.18.1",
+  "private": true,
+  "type": "module",
+  "description": "Локальная озвучка субтитров видео и локальный перевод через Chrome Translator.",
+  "scripts": {
+    "postinstall": "node scripts/prepare-vendor.mjs",
+    "vendor:prepare": "node scripts/prepare-vendor.mjs",
+    "store:assets": "node scripts/create-store-assets.mjs",
+    "store:kit": "node scripts/build-store-kit.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "package": "node scripts/package.mjs"
+  }
+}

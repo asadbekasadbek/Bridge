@@ -1,0 +1,142 @@
+{
+  "manifest_version": 3,
+  "name": "Bridge — озвучка и перевод субтитров",
+  "short_name": "Bridge",
+  "version": "0.18.1",
+  "description": "Озвучка и перевод субтитров YouTube и учебных видео. Локальные голоса, выбор языка и приглушение оригинала.",
+  "minimum_chrome_version": "109",
+  "permissions": [
+    "storage",
+    "tts",
+    "offscreen"
+  ],
+  "cross_origin_embedder_policy": {
+    "value": "require-corp"
+  },
+  "cross_origin_opener_policy": {
+    "value": "same-origin"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Bridge — настройки голоса",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://youtube.com/*"
+      ],
+      "js": [
+        "shared/ui-language.js",
+        "shared/runtime-request.js",
+        "youtube/player-tools.js",
+        "youtube/caption-tools.js",
+        "youtube/video-language.js",
+        "youtube/language-tools.js",
+        "youtube/audio-mixer.js",
+        "youtube/pitch-tools.js",
+        "youtube/voice-detector.js",
+        "shared/voice-pack-controls.js",
+        "youtube/content.js"
+      ],
+      "css": [
+        "youtube/controls.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://ted.com/*",
+        "https://www.ted.com/*",
+        "https://embed.ted.com/*",
+        "https://vimeo.com/*",
+        "https://www.vimeo.com/*",
+        "https://player.vimeo.com/*",
+        "https://*.udemy.com/*",
+        "https://coursera.org/*",
+        "https://www.coursera.org/*",
+        "https://vk.com/*",
+        "https://www.vk.com/*",
+        "https://m.vk.com/*",
+        "https://vkvideo.ru/*",
+        "https://www.vkvideo.ru/*",
+        "https://rutube.ru/*",
+        "https://www.rutube.ru/*",
+        "https://twitch.tv/*",
+        "https://www.twitch.tv/*",
+        "https://player.twitch.tv/*",
+        "https://clips.twitch.tv/*"
+      ],
+      "js": [
+        "shared/ui-language.js",
+        "shared/runtime-request.js",
+        "platforms/catalogue.js",
+        "youtube/caption-tools.js",
+        "youtube/language-tools.js",
+        "youtube/audio-mixer.js",
+        "youtube/pitch-tools.js",
+        "youtube/voice-detector.js",
+        "platforms/caption-tracks.js",
+        "platforms/local-translation.js",
+        "platforms/adapter.js",
+        "shared/voice-pack-controls.js",
+        "youtube/content.js"
+      ],
+      "css": [
+        "youtube/controls.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self'; img-src 'self'; object-src 'none'; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "youtube/controls.css"
+      ],
+      "matches": [
+        "https://ted.com/*",
+        "https://www.ted.com/*",
+        "https://embed.ted.com/*",
+        "https://vimeo.com/*",
+        "https://www.vimeo.com/*",
+        "https://player.vimeo.com/*",
+        "https://*.udemy.com/*",
+        "https://coursera.org/*",
+        "https://www.coursera.org/*",
+        "https://vk.com/*",
+        "https://www.vk.com/*",
+        "https://m.vk.com/*",
+        "https://vkvideo.ru/*",
+        "https://www.vkvideo.ru/*",
+        "https://rutube.ru/*",
+        "https://www.rutube.ru/*",
+        "https://twitch.tv/*",
+        "https://www.twitch.tv/*",
+        "https://player.twitch.tv/*",
+        "https://clips.twitch.tv/*"
+      ]
+    }
+  ]
+}

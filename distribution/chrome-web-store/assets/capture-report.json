@@ -1,0 +1,15 @@
+{
+  "browser": "151.0.7922.34",
+  "dimensions": "1280x800",
+  "screenshots": [
+    "01-subtitles-to-voice",
+    "02-language-controls",
+    "03-voice-library",
+    "04-original-volume",
+    "05-personal-settings"
+  ],
+  "extension": "real UI, real pinned voice installation and ONNX speech",
+  "sourceVideo": "locally authored demo fixture",
+  "modelDownload": "local archive response, checked by the real installer",
+  "errors": []
+}

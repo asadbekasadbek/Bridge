@@ -1,0 +1,83 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>YouTube fixture — Bridge</title>
+<style>
+body{margin:0;background:#10131c;color:#fff;font:16px Arial,sans-serif}header{padding:24px 38px;font-weight:700}main{max-width:1000px;margin:30px auto}#movie_player{height:540px;position:relative;background:linear-gradient(125deg,#202b50,#111724);border-radius:12px;overflow:hidden}video{position:absolute;width:100%;height:100%;opacity:.02}.fixture-title{position:absolute;left:40px;top:150px;font-size:36px;font-weight:700;max-width:620px;line-height:1.3}.fixture-title small{display:block;font-size:14px;margin-top:20px;color:#b7c5ea}.ytp-caption-window-container{position:absolute;bottom:110px;width:100%;text-align:center;pointer-events:none}.ytp-caption-segment{padding:8px;background:#0009;font-size:24px}.ytp-right-controls{position:absolute;bottom:0;right:12px;height:52px;display:flex;align-items:center;gap:8px}.fixture-control{height:32px;border:0;background:transparent;color:#fff;font-size:20px}h1{font-size:22px;font-weight:500}p{color:#a2afcf}
+</style></head><body><header>▶ YouTube <span style="color:#94a3c8;font-weight:400">· тестовый плеер</span></header><main><div id="movie_player" class="html5-video-player"><video muted autoplay loop playsinline></video><div class="fixture-title">Субтитры становятся голосом<small>Bridge · проверка кнопки включения и выключения</small></div><div class="ytp-caption-window-container" style="visibility:hidden"></div><div class="ytp-right-controls"><button class="fixture-control ytp-subtitles-button" aria-label="Субтитры" aria-pressed="false">CC</button><button class="fixture-control" aria-label="Настройки">⚙</button><button class="fixture-control" aria-label="Полный экран">⛶</button></div></div><h1>Проверка озвучки выбранных субтитров</h1><p>Локальный тест интерфейса. Внешние видео и сервисы перевода не используются.</p></main>
+<script>
+  const gear = document.querySelector('[aria-label="Настройки"]');
+  gear.classList.add("ytp-settings-button");
+  gear.setAttribute("aria-expanded", "false");
+  const menu = document.createElement("div");
+  menu.className = "ytp-settings-menu";
+  menu.style.cssText = "display:none;position:absolute;right:20px;bottom:70px;background:#222b40;padding:16px;z-index:5";
+  document.querySelector("#movie_player").append(menu);
+  const scenario = new URL(location.href).searchParams.get("v");
+  const originalLanguage = scenario === "russian_source" ? "ru" : scenario === "korean_source" ? "ko" : "en";
+  const originalLabel = originalLanguage === "ru" ? "Русский" : originalLanguage === "ko" ? "Корейский (создано автоматически)" : "English";
+  let selected = originalLabel;
+  document.documentElement.dataset.captionLanguage = originalLanguage;
+  const metadata = document.createElement("script");
+  metadata.textContent = "var ytInitialPlayerResponse = " + JSON.stringify({
+    videoDetails: { videoId: new URL(location.href).searchParams.get("v") },
+    captions: { playerCaptionsTracklistRenderer: {
+      captionTracks: [{ languageCode: originalLanguage, name: { simpleText: originalLabel }, kind: "asr", isTranslatable: true }],
+      audioTracks: [{ captionTrackIndices: [0] }], defaultAudioTrackIndex: 0,
+      translationLanguages: [{ languageCode: "ru" }, { languageCode: "en" }, { languageCode: "de" }]
+    } }
+  }) + ";";
+  document.head.append(metadata);
+  const row = (label, action, radio = false) => {
+    const element = document.createElement("div"); element.className = "ytp-menuitem";
+    element.style.cssText = "padding:8px;cursor:pointer";
+    element.setAttribute("role", radio ? "menuitemradio" : "menuitem");
+    if (radio) element.setAttribute("aria-checked", String(label === selected));
+    const text = document.createElement("div"); text.className = "ytp-menuitem-label"; text.textContent = label;
+    element.append(text); element.addEventListener("click", action); return element;
+  };
+  function panel(title) {
+    menu.replaceChildren();
+    const element = document.createElement("div"); element.className = "ytp-panel";
+    if (title) { const heading = document.createElement("div"); heading.className = "ytp-panel-title"; heading.textContent = title; element.append(heading); }
+    menu.append(element); return element;
+  }
+  function rootMenu() {
+    const element = panel("");
+    const captions = row("Субтитры", tracksMenu);
+    const content = document.createElement("div"); content.className = "ytp-menuitem-content"; content.textContent = selected;
+    captions.append(content); element.append(captions);
+  }
+  function choose(label, language, translated = false) {
+    selected = translated ? `${originalLabel} >> ${label}` : label;
+    document.documentElement.dataset.captionLanguage = language;
+    rootMenu();
+  }
+  function tracksMenu() {
+    const element = panel("Субтитры");
+    element.append(row(selected, () => {}, true));
+    if (selected !== originalLabel) element.append(row(originalLabel, () => choose(originalLabel, originalLanguage), true));
+    if (document.documentElement.dataset.directRussian === "true") element.append(row("Русский", () => choose("Русский", "ru"), true));
+    if (scenario === "korean_source") element.append(row("Русский (создано автоматически)", () => choose("Русский (создано автоматически)", "ru"), true));
+    const translateLabel = new URL(location.href).searchParams.get("v") === "legacy_translation" ? "Автоперевод" : "Перевести";
+    if (document.documentElement.dataset.noTranslation !== "true") element.append(row(translateLabel, () => {
+      document.documentElement.dataset.translationMenuOpens = String(Number(document.documentElement.dataset.translationMenuOpens || 0) + 1);
+      const languages = panel(translateLabel);
+      for (const [label, language] of [["Русский", "ru"], ["Deutsch", "de"], ["Español", "es"], ["English", "en"], ["O‘zbekcha", "uz"]]) {
+        if (document.documentElement.dataset.missingRussian === "true" && language === "ru") continue;
+        languages.append(row(label, () => choose(label, language, true), true));
+      }
+    }));
+  }
+  gear.addEventListener("click", () => {
+    const open = gear.getAttribute("aria-expanded") !== "true";
+    gear.setAttribute("aria-expanded", String(open));
+    menu.style.display = open ? "block" : "none";
+    if (open) rootMenu();
+  });
+  document.documentElement.dataset.captionClicks = "0";
+  document.querySelector(".ytp-subtitles-button").addEventListener("click", (event) => {
+    const button = event.currentTarget;
+    const on = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", String(on));
+    document.querySelector(".ytp-caption-window-container").style.visibility = on ? "visible" : "hidden";
+    document.documentElement.dataset.captionClicks = String(Number(document.documentElement.dataset.captionClicks) + 1);
+  });
+</script></body></html>

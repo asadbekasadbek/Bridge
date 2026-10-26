@@ -1,0 +1,46 @@
+{
+  "locale": "ru",
+  "category": "Accessibility",
+  "categoryRu": "Специальные возможности",
+  "visibility": "Public",
+  "price": "Free",
+  "singlePurpose": "Озвучивание доступных субтитров видео выбранным локальным голосом на поддерживаемых площадках, включая выбор доступной языковой дорожки или перевода.",
+  "searchPhrasesInternalOnly": ["озвучка субтитров", "перевод субтитров", "голос для видео", "локальная озвучка", "читать субтитры вслух", "озвучка учебных видео", "text to speech", "subtitle reader"],
+  "permissions": {
+    "storage": "Stores the chosen interface language, source/target languages, local voice, speech rate, volume and player preferences in chrome.storage.local. No Chrome Sync, account or remote settings service is used. Installed voice model data remains in the extension's local IndexedDB.",
+    "tts": "Lists and invokes compatible on-device operating-system voices for subtitle speech and voice previews. Remote voices and voices from other extensions are filtered out. Optional Piper voices use the packaged local WASM runtime.",
+    "offscreen": "Provides a local document for the speech Worker, Web Audio playback and user-requested voice-pack installation while the popup is closed. Acoustic inference starts only for speech or warmup after enabling speech. Worker/audio resources are released after idle time.",
+    "hostAccess": "Content scripts run only on the video domains in the manifest. They read available subtitle text, track language, the current video's URL and playback state; add controls; select a caption track; and manage volume. Auto voice mode uses captureStream/Web Audio on a short local copy of player audio for approximate pitch-based voice selection. No microphone permission, recording upload, password, cookie or full history access is requested. A packaged stylesheet is exposed only to the listed players for controls in open Shadow DOM."
+  },
+  "remoteCode": {
+    "usesRemoteCode": false,
+    "explanation": "All JavaScript and WebAssembly executables, including ONNX Runtime and the Piper/eSpeak phonemizer, are inside the ZIP. No remote JS/WASM, eval-based script loading or remote executable updates are used. On explicit request, the extension downloads ONNX acoustic model data and JSON configuration from a fixed rhasspy/piper-voices revision on Hugging Face/CDN. The catalogue pins source, size and SHA-256; arbitrary URLs are rejected. These downloads are model data, not JavaScript or WebAssembly. Chrome manages its own built-in Translator language data."
+  },
+  "dataUse": {
+    "websiteContent": true,
+    "webHistory": true,
+    "userActivity": true,
+    "personallyIdentifiableInformation": false,
+    "healthInformation": false,
+    "financialAndPaymentInformation": false,
+    "authenticationInformation": false,
+    "personalCommunications": false,
+    "location": false,
+    "explanation": "The extension locally handles subtitle text, a short copy of player audio in Auto mode, the supported current video's URL, caption language, playback time/state and voice preferences. It does not read the browser history database or build a viewing log. The web-history declaration covers only the current supported page URL used to identify/reset the video session. Text, derived pitch and playback state are temporary; no subtitle, audio or browsing log is sent to the developer. Model hosts receive ordinary download request metadata, including IP address, when the user installs a voice."
+  },
+  "certifications": [
+    "User data is not sold or transferred to third parties outside the permitted user-facing purpose.",
+    "User data is not used or transferred for purposes unrelated to the extension's single purpose.",
+    "User data is not used or transferred to determine creditworthiness or for lending purposes."
+  ],
+  "sources": {
+    "listing": "https://developer.chrome.com/docs/webstore/cws-dashboard-listing",
+    "images": "https://developer.chrome.com/docs/webstore/images",
+    "spam": "https://developer.chrome.com/docs/webstore/program-policies/spam-faq",
+    "privacy": "https://developer.chrome.com/docs/webstore/cws-dashboard-privacy",
+    "localData": "https://developer.chrome.com/docs/webstore/program-policies/user-data-faq",
+    "category": "https://developer.chrome.com/docs/webstore/best-practices",
+    "discovery": "https://developer.chrome.com/docs/webstore/discovery",
+    "publishing": "https://developer.chrome.com/docs/webstore/publish"
+  }
+}

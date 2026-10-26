@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bridge — настройки голоса</title>
+  <link rel="icon" href="icons/32.png">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="options.js"></script>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="options.html"><img src="icons/mark.svg" width="38" height="38" alt=""><span>Bridge<span class="brand-description">Голос для субтитров</span></span></a>
+    <span class="stage-badge"><span class="status-dot"></span>Локальная речь · 0.18</span>
+  </div></header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <p class="eyebrow">ВАШЕ РАСШИРЕНИЕ</p>
+      <div class="nav-item"><span aria-hidden="true">☷</span> Настройки голоса</div>
+      <div class="local-note"><span class="local-icon" aria-hidden="true">⌂</span><strong>Только нужные языки</strong><p>Выберите язык и установите нужный голос. Остальные модели не скачиваются. Ненужные пакеты можно удалить.</p></div>
+      <p class="sidebar-foot">Bridge 0.18.1</p>
+    </aside>
+    <div class="content">
+      <div class="page-heading"><p class="eyebrow">НАЧНЁМ С ГЛАВНОГО</p><h1>Настроим ваш голос</h1><p>Выберите язык, послушайте голос и подберите удобную скорость.</p></div>
+      <div class="stage-note"><span class="note-symbol" aria-hidden="true">i</span><p>Для языка видео по умолчанию выбрано «Автоматически». При необходимости задайте его вручную. Язык перевода выбирается отдельно. Оба выбора сохраняются сразу.</p></div>
+      <div id="fatal-error" class="notice error" role="alert" hidden></div>
+      <div class="stage-note"><span class="note-symbol" aria-hidden="true">i</span><p>YouTube, TED, Vimeo, Udemy, Coursera, VK Видео, RUTUBE и Twitch. На YouTube перевод делает сайт. На остальных площадках — готовая дорожка или локальный Translator Chrome 138+. Для первой загрузки языкового пакета нужен интернет; текст остаётся на компьютере. Для закрытого курса войдите в свой аккаунт площадки.</p></div>
+      <div class="settings-grid">
+        <form id="settings-form" class="card settings-card">
+          <div class="card-title"><span class="step-number">01</span><div><h2>Языки и звучание</h2><p>Оба языка запоминаются автоматически.</p></div></div>
+          <fieldset id="settings-fields" disabled>
+            <label for="source-language">Язык видео</label>
+            <select id="source-language" name="source-language" aria-describedby="source-help"></select>
+            <p id="source-help" class="help">«Автоматически» определяет язык по дорожке YouTube. Ручной выбор использует доступные исходные субтитры на выбранном языке.</p>
+            <label for="language">Переводить и озвучивать на</label>
+            <select id="language" name="language" aria-describedby="language-help"></select>
+            <p id="language-help" class="help">Выбор сохраняется сразу. Ниже отдельно показаны доступность перевода и голоса. Установите только тот голос, который хотите слушать.</p>
+            <label for="voice-gender">Режим голоса в видео</label>
+            <select id="voice-gender" name="voice-gender"><option value="any">Авто · по звучанию</option><option value="female">Женский</option><option value="male">Мужской</option></select>
+            <p class="help">«Авто» приблизительно подбирает тембр по коротким фрагментам звука, без нейросети. В плеере можно в любой момент выбрать «Женский» или «Мужской» для текущей и следующих реплик. Для проверки ниже используется выбранный локальный голос.</p>
+            <div class="label-row"><label for="voice">Локальный голос</label><button id="refresh-voices" type="button" class="text-button">Обновить список</button></div>
+            <select id="voice" name="voice" aria-describedby="voice-help"></select>
+            <p id="voice-help" class="help">Проверяем установленные голоса…</p>
+            <div id="voice-pack-controls"></div>
+            <button id="best-voice" type="button" class="button quiet">Настроить естественную речь</button>
+            <p class="help">Выберем лучший доступный локальный голос, включим чтение фразами и обычную скорость 1×. Сохраним и дадим послушать.</p>
+            <div class="reading-mode"><label for="show-subtitles"><input id="show-subtitles" type="checkbox" role="switch"> Показывать субтитры на видео</label><p class="help">Когда Bridge включён, можно слушать озвучку без текста на экране. Выбор сохраняется сразу.</p></div>
+            <div class="reading-mode"><label for="natural-speech"><input id="natural-speech" type="checkbox" checked> Плавное чтение фразами</label><p class="help">Короткие фрагменты объединяются. Знаки вопроса, запятые и точки помогают голосу выбрать интонацию; оформление и пометки звуков пропускаются.</p></div>
+            <div class="slider-label"><label for="rate">Скорость речи</label><output id="rate-value" for="rate">1×</output></div>
+            <input id="rate" name="rate" type="range" min="0.75" max="1.5" step="0.05" value="1">
+            <div class="range-labels"><span>Спокойнее</span><span>Быстрее</span></div>
+            <div class="slider-label"><label for="volume">Громкость голоса</label><output id="volume-value" for="volume">85%</output></div>
+            <input id="volume" name="volume" type="range" min="0" max="100" step="1" value="85">
+            <div class="range-labels"><span>Тише</span><span>Громче</span></div>
+            <div class="reading-mode"><label for="ducking-enabled"><input id="ducking-enabled" type="checkbox" checked role="switch"> Приглушать видео во время озвучки</label><p class="help">Оригинал плавно становится тише, пока говорит Bridge. На паузе, после речи и при отключении громкость восстанавливается.</p></div>
+            <div class="slider-label"><label for="ducking-amount">Сила приглушения оригинала</label><output id="ducking-value" for="ducking-amount">60%</output></div>
+            <input id="ducking-amount" name="ducking-amount" type="range" min="0" max="100" step="1" value="60">
+            <p class="help">0% — без приглушения, 100% — только озвучка во время речи. Исходная громкость задаётся обычным регулятором YouTube. В плеере эти настройки можно менять и сохранять сразу.</p>
+            <div class="save-row"><button id="save" type="submit" class="button primary">Сохранить настройки</button><button id="reset" type="button" class="text-button secondary-text">Сбросить</button></div>
+            <div class="reading-mode"><label for="hide-external-downloaders"><input id="hide-external-downloaders" type="checkbox" checked> Скрыть стороннюю кнопку скачивания</label><p class="help">Убирает кнопку All-in-One Downloader на YouTube, которая открывает другой сайт. Переключатель сохраняется сразу.</p></div>
+          </fieldset>
+          <p id="save-status" class="form-status" role="status" aria-live="polite">Загружаем настройки…</p>
+        </form>
+        <div class="right-column">
+          <section class="card preview-card" aria-labelledby="preview-heading">
+            <div class="card-title"><span class="step-number">02</span><div><h2 id="preview-heading">Послушайте голос</h2><p>Небольшая проверка перед просмотром.</p></div></div>
+            <label for="sample">Текст для проверки</label>
+            <textarea id="sample" rows="5" maxlength="500" spellcheck="false" disabled></textarea>
+            <div class="preview-actions"><button id="preview" class="button dark" type="button" disabled><span aria-hidden="true">▶</span> Послушать</button><button id="stop" class="button quiet" type="button" disabled>Остановить</button></div>
+            <p id="preview-status" class="form-status" role="status" aria-live="polite">Выберите установленный голос и нажмите «Послушать». Пример звучит на вашем компьютере.</p>
+            <div id="voice-warning" class="notice warning" hidden><strong>Нужен голос для выбранного языка</strong><p>Нажмите «Установить голоса», если для языка есть пакет. Либо добавьте локальный голос в ОС и обновите список.</p></div>
+          </section>
+          <section class="privacy-card"><span class="privacy-mark" aria-hidden="true">✓</span><div><h2>Локальный голос</h2><p>При установке скачиваются только файлы модели; текст не отправляется. Речь работает на компьютере. На YouTube перевод делает сайт, на остальных площадках доступен локальный перевод Chrome.</p></div></section>
+          <p class="footnote">Лёгкий режим включён по умолчанию: один голос в памяти и выгрузка после минуты простоя. Установленные файлы сохраняются. Для быстрых переключений двух голосов можно отключить экономию памяти. Старые ноутбуки требуют отдельной проверки.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

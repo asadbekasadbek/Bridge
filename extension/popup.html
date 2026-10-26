@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Bridge</title><link rel="stylesheet" href="styles.css"><script type="module" src="popup.js"></script></head>
+<body class="popup-body">
+  <main class="popup">
+    <div class="popup-heading"><div class="brand"><img src="icons/mark.svg" width="36" height="36" alt=""><span>Bridge<span class="brand-description">Голос для субтитров</span></span></div><span class="version-badge">0.18</span></div>
+    <div class="popup-intro"><p class="eyebrow">ЛОКАЛЬНАЯ ОЗВУЧКА ВИДЕО</p><h1>Субтитры звучат</h1><p>Выберите язык доступных субтитров и локальный голос.</p></div>
+    <section class="youtube-panel" aria-label="Управление озвучкой видео">
+      <button id="toggle-youtube" class="button primary full-width" type="button" disabled aria-pressed="false">Озвучить субтитры</button>
+      <p id="youtube-status" class="form-status" role="status" aria-live="polite">Ищем видео в текущей вкладке…</p>
+    </section>
+    <dl class="summary"><div><dt>Язык озвучки</dt><dd id="summary-language">Загружаем…</dd></div><div><dt>Голос</dt><dd id="summary-voice">Проверяем…</dd></div><div><dt>Скорость</dt><dd id="summary-rate">—</dd></div></dl>
+    <button id="open-settings" class="button primary full-width" type="button">Настроить голос <span aria-hidden="true">↗</span></button>
+    <div class="popup-preview"><button id="quick-preview" class="text-button" type="button" disabled>▶ Проверить голос</button><button id="quick-stop" class="text-button secondary-text" type="button" disabled>Остановить</button></div>
+    <p id="popup-status" class="form-status" role="status" aria-live="polite">Голос работает на компьютере.</p>
+    <p class="popup-stage-note">Оба языка можно выбрать в шестерёнке Bridge в плеере. Слева по умолчанию «Автоматически». Выбор сохраняется сразу. Перевод YouTube требует интернета. На других площадках используется локальный перевод Chrome 138+; первый языковой пакет скачивается.</p>
+  </main>
+</body>
+</html>

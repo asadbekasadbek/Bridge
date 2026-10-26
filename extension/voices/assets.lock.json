@@ -1,0 +1,320 @@
+{
+  "model": "Optional Piper voice packs; acoustic weights are not bundled",
+  "source": "https://huggingface.co/rhasspy/piper-voices/tree/5041a7a49ae5b3a0f30e6837769eb03fdbb231bd",
+  "revision": "5041a7a49ae5b3a0f30e6837769eb03fdbb231bd",
+  "runtime": "onnxruntime-web@1.30.0",
+  "phonemizer": "@diffusionstudio/piper-wasm@1.0.0 (reproducible ESM/argv/compiled-WASM adaptation)",
+  "phonemizerSource": "wide-video/piper-phonemize@cfff8e52ebaea37c7e953ae2d06b174acb827ac4; rhasspy/espeak-ng@0f65aa301e0d6bae5e172cc74197d32a6182200f",
+  "files": [
+    {
+      "path": "licenses/sources/espeak-ng-0f65aa3.tar.gz",
+      "bytes": 16321475,
+      "sha256": "37ebbabb010200be8ec26c61b770e93f964f4503a329d7d74c239a1a40051e43"
+    },
+    {
+      "path": "licenses/sources/piper-phonemize-cfff8e5.tar.gz",
+      "bytes": 9787534,
+      "sha256": "8fb59aef568d551fa3a57fde01daefdfe198bcede2b7cbe61951dd89879779ad"
+    },
+    {
+      "path": "vendor/ort/ort-wasm-simd-threaded.mjs",
+      "bytes": 24381,
+      "sha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b"
+    },
+    {
+      "path": "vendor/ort/ort-wasm-simd-threaded.wasm",
+      "bytes": 14239897,
+      "sha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+    },
+    {
+      "path": "vendor/ort/ort.wasm.min.mjs",
+      "bytes": 50126,
+      "sha256": "219e6a1fc8a9938268d18efca3c91d310bd2f4a59bbd13744df5b2b7fc6cee3b"
+    },
+    {
+      "path": "vendor/piper/phonemize.data",
+      "bytes": 18077249,
+      "sha256": "29f1025eb23a5b5c192cd14a6efbce4509402ff265405072ee6f7d1a09b78f8c"
+    },
+    {
+      "path": "vendor/piper/phonemize.mjs",
+      "bytes": 121478,
+      "sha256": "213c3f4728db4816eb4d7056dcde8069506597610208121c9fcff5ae488ae921"
+    },
+    {
+      "path": "vendor/piper/phonemize.wasm",
+      "bytes": 635212,
+      "sha256": "b777cd107a91d2bcc6a1ea46f2c26a662a7407394fe84589198aeaa83dd7a9d6"
+    },
+    {
+      "path": "voices/README.upstream.md",
+      "bytes": 497,
+      "sha256": "33e93643fce5180886300f9f0070eeeab8af148efb8e84361f8904def80fd9fb"
+    },
+    {
+      "path": "voices/catalogue/de_DE-kerstin-low/MODEL_CARD.md",
+      "bytes": 272,
+      "sha256": "7019006374a5fe5358186d5f3333e9f904385e7bdfbb68bc85dafce1a3cddae5"
+    },
+    {
+      "path": "voices/catalogue/de_DE-thorsten-medium/MODEL_CARD.md",
+      "bytes": 285,
+      "sha256": "5196b5ab0794e6056263a1f37c18bec407b61ac187529bee29d1c366871e5c9e"
+    },
+    {
+      "path": "voices/catalogue/en_US-john-medium/MODEL_CARD.md",
+      "bytes": 498,
+      "sha256": "a056da65cd70dcbda96fc3420fe8d3442dbf3c8b75f49cdf800a715b42e299d1"
+    },
+    {
+      "path": "voices/catalogue/en_US-kristin-medium/MODEL_CARD.md",
+      "bytes": 479,
+      "sha256": "8c181b1d5f7d8152b914faab941fcbe6b8f0495e63e5189d6f27b8c68c8393fc"
+    },
+    {
+      "path": "voices/catalogue/es_ES-davefx-medium/MODEL_CARD.md",
+      "bytes": 276,
+      "sha256": "420703b5d8ea239b729f13d83f31eea9bae5fcb89447de23ebc94aa8a4768f95"
+    },
+    {
+      "path": "voices/catalogue/fr_FR-siwis-medium/MODEL_CARD.md",
+      "bytes": 284,
+      "sha256": "bd8b8d079d4d3d2c4cc20345889bbcd586d72f021a132f93357a763eb5232cce"
+    },
+    {
+      "path": "voices/catalogue/kk_KZ-iseke-x_low/MODEL_CARD.md",
+      "bytes": 239,
+      "sha256": "331b0fc4cd0fa5f35fd84d4e6952840322f1e98b4de3b67ae235ba9165eb97f8"
+    },
+    {
+      "path": "voices/catalogue/kk_KZ-raya-x_low/MODEL_CARD.md",
+      "bytes": 238,
+      "sha256": "e71341b5c00109f19061694306ce84d95de4cec4e403916397ba7d1147dbc87b"
+    },
+    {
+      "path": "voices/catalogue/pt_BR-faber-medium/MODEL_CARD.md",
+      "bytes": 279,
+      "sha256": "01f1a5bcfd0538782726059ae407eae9c2dd1b5b35f7298fd53a68de91afe563"
+    },
+    {
+      "path": "voices/catalogue/sq_AL-edon-medium/MODEL_CARD.md",
+      "bytes": 280,
+      "sha256": "3849de03579aaeabf996ca2e08792ee457f8d55bd473332cd0d7684fc728cfb0"
+    },
+    {
+      "path": "voices/catalogue/et_EE-news-medium/MODEL_CARD.md",
+      "bytes": 449,
+      "sha256": "5ad77aaa52c3eff92822252136c4ac4f23550e4acf128cb50cf9b30bfcb22b0d"
+    },
+    {
+      "path": "voices/catalogue/ur_PK-aegis_female-medium/MODEL_CARD.md",
+      "bytes": 611,
+      "sha256": "f9f16fbcfeec2c233be21c734125d6c1ada7ac0037c6ffd7751065f566b53b6e"
+    },
+    {
+      "path": "voices/catalogue/lb_LU-marylux-medium/MODEL_CARD.md",
+      "bytes": 330,
+      "sha256": "613dc86e24d7ebd06ca1a91b04584636528a25fad1ba62318ff5622211b1dc10"
+    },
+    {
+      "path": "voices/catalogue/sl_SI-artur-medium/MODEL_CARD.md",
+      "bytes": 329,
+      "sha256": "fe8431d0830a41260379ba7f8813e3dfb515c02684a0663702f45e047e31bba9"
+    },
+    {
+      "path": "voices/catalogue/sk_SK-lili-medium/MODEL_CARD.md",
+      "bytes": 276,
+      "sha256": "d1df98a436e1b22f6bd1792a14fb3592dd816ee250ee3ff9ff3be62cd39c59b0"
+    },
+    {
+      "path": "voices/catalogue/hy_AM-gor-medium/MODEL_CARD.md",
+      "bytes": 269,
+      "sha256": "8aa657540385acbc6e651185eb60f162a9317ab1cce1d50ab08f9604975c401b"
+    },
+    {
+      "path": "voices/catalogue/ru_RU-denis-medium/MODEL_CARD.md",
+      "bytes": 276,
+      "sha256": "8b5d685dd80f8ad3f8dbbe1c56b16bb0809f00c144af3642dbcf3b707eb89c12"
+    },
+    {
+      "path": "voices/catalogue/ru_RU-irina-medium/MODEL_CARD.md",
+      "bytes": 271,
+      "sha256": "f4fc2deb0e8c6219f29202b8dd06c9638c5ffd50ad5c6b2c90cf1aa59d507593"
+    },
+    {
+      "path": "voices/catalogue/ca_ES-upc_ona-medium/MODEL_CARD.md",
+      "bytes": 296,
+      "sha256": "2961b53af17c66971b3ebe3b174566a16ae6e9302997eed111a7d2b1954d31fd"
+    },
+    {
+      "path": "voices/catalogue/ka_GE-natia-medium/MODEL_CARD.md",
+      "bytes": 288,
+      "sha256": "67224b9fa87999fc78c8289305f40348941423c5ad3fd1f1baefb2be0b8a6c18"
+    },
+    {
+      "path": "voices/catalogue/uk_UA-lada-x_low/MODEL_CARD.md",
+      "bytes": 267,
+      "sha256": "e573364d00e4497e2aa96475d785887eb3ce901b3af9fda49f7f772c3cc5ff4a"
+    },
+    {
+      "path": "voices/catalogue/ar_JO-kareem-medium/MODEL_CARD.md",
+      "bytes": 283,
+      "sha256": "38e1e4f94c4cb9eda041a639096763a8c5681d0be5a5b3e22f990aed6bb4b86e"
+    },
+    {
+      "path": "voices/catalogue/da_DK-talesyntese-medium/MODEL_CARD.md",
+      "bytes": 308,
+      "sha256": "b5b7a51d4d815a307594619a519eb389b2e17839b30c0eb69a39d3ade5b1ed65"
+    },
+    {
+      "path": "voices/catalogue/cy_GB-gwryw_gogleddol-medium/MODEL_CARD.md",
+      "bytes": 337,
+      "sha256": "0528d8184faf7c0b4ab5ba7418a73a0a2109aeccb9d82136952c1618d5be9588"
+    },
+    {
+      "path": "voices/catalogue/el_GR-joy-medium/MODEL_CARD.md",
+      "bytes": 349,
+      "sha256": "a38d735f47d9c520ce067fa72645fae16caa8b60fcf20e7207ea2f6c289dc80e"
+    },
+    {
+      "path": "voices/catalogue/is_IS-bui-medium/MODEL_CARD.md",
+      "bytes": 246,
+      "sha256": "b01efb62ec770a1c1ebe2015d8f9985e6e1bf43fd72a42a6710d142e93752ce3"
+    },
+    {
+      "path": "voices/catalogue/te_IN-maya-medium/MODEL_CARD.md",
+      "bytes": 318,
+      "sha256": "fe0a4b70db1f6c952df23492ed1fe6c09a85a2b0df3df5f8975dbf2d84f07992"
+    },
+    {
+      "path": "voices/catalogue/ku_TR-berfin_renas-medium/MODEL_CARD.md",
+      "bytes": 3756,
+      "sha256": "9c65915ac8c7e3536e322fb8f3f4b285e2e007068588def12eaac815e3bed615"
+    },
+    {
+      "path": "voices/catalogue/zh_CN-huayan-medium/MODEL_CARD.md",
+      "bytes": 276,
+      "sha256": "25d7d8f7a03e9382e629c5c4f074176e7ca84e08be12a873022e91fcac98c2c7"
+    },
+    {
+      "path": "voices/catalogue/ko_KR-kss-medium/MODEL_CARD.md",
+      "bytes": 333,
+      "sha256": "792db9e4889b69bf56bf49ed584809292110e16bf1fc904ff2b99faf8f778d6d"
+    },
+    {
+      "path": "voices/catalogue/ne_NP-chitwan-medium/MODEL_CARD.md",
+      "bytes": 276,
+      "sha256": "127e85643329612dbebd7a071dd0f69a03439ceecdec5b637ed8641379b4ba00"
+    },
+    {
+      "path": "voices/catalogue/fa_IR-amir-medium/MODEL_CARD.md",
+      "bytes": 264,
+      "sha256": "0d7d315699945ac830162f82d485d79af51a33081a7649e8992726bd4bba2384"
+    },
+    {
+      "path": "voices/catalogue/ro_RO-mihai-medium/MODEL_CARD.md",
+      "bytes": 278,
+      "sha256": "e06fb69411b3614636fdec4af646ac74548c6c323a8ac4030e34cb54e99016a1"
+    },
+    {
+      "path": "voices/catalogue/fi_FI-harri-medium/MODEL_CARD.md",
+      "bytes": 304,
+      "sha256": "a0a7fa3f046f1e582689db76f93099735530343a3126f3f40ed64380c419a0b2"
+    },
+    {
+      "path": "voices/catalogue/tr_TR-dfki-medium/MODEL_CARD.md",
+      "bytes": 319,
+      "sha256": "a3e08c57b9c6d428f8e4fb146512c8b1fb96a68c99d43820ed1dfea6d39cb35f"
+    },
+    {
+      "path": "voices/catalogue/lv_LV-aivars-medium/MODEL_CARD.md",
+      "bytes": 257,
+      "sha256": "6a950a9f9c95b893b7fd3553f5b42f5b1025fb5fbc004d3924d99e92250b69cf"
+    },
+    {
+      "path": "voices/catalogue/it_IT-paola-medium/MODEL_CARD.md",
+      "bytes": 303,
+      "sha256": "c53fd0070dc93b438edbce06728eb83759ba030fff0cce523209ee4a0a6363c0"
+    },
+    {
+      "path": "voices/catalogue/sr_RS-serbski_institut-medium/MODEL_CARD.md",
+      "bytes": 343,
+      "sha256": "1ed2209d4d01b359416f17772c6c11272bdb59359d0b0b076e31a5ccb87446ac"
+    },
+    {
+      "path": "voices/catalogue/ml_IN-arjun-medium/MODEL_CARD.md",
+      "bytes": 308,
+      "sha256": "0115bfc12e2b7d9cc28b43e2ebc746e402b6ed867c619ae61bc80d0427a95c83"
+    },
+    {
+      "path": "voices/catalogue/vi_VN-vais1000-medium/MODEL_CARD.md",
+      "bytes": 361,
+      "sha256": "302db8a930ffc2b1c2181db26deaf8272116eca2b08b8f80da6375b0a994af7b"
+    },
+    {
+      "path": "voices/catalogue/mr_IN-google-medium/MODEL_CARD.md",
+      "bytes": 272,
+      "sha256": "1591a13ba1c4b97af9f33571ed804a198705a01c37e96d604fe151cb004fb40e"
+    },
+    {
+      "path": "voices/catalogue/nl_BE-nathalie-medium/MODEL_CARD.md",
+      "bytes": 284,
+      "sha256": "129daeda6c74903efac7aa522ae4fd6628a6acdd0975ee897384e1079acbcd2f"
+    },
+    {
+      "path": "voices/catalogue/hi_IN-pratham-medium/MODEL_CARD.md",
+      "bytes": 304,
+      "sha256": "89cf491ea99e69b27c94599cecea3f0fc6aeacb30f4ccdb12897f659868df29e"
+    },
+    {
+      "path": "voices/catalogue/eu_ES-antton-medium/MODEL_CARD.md",
+      "bytes": 310,
+      "sha256": "61e1cf7bba48a290be225a1afb3167094fc16c479cea655b11c8ff87e9245264"
+    },
+    {
+      "path": "voices/catalogue/cs_CZ-jirka-medium/MODEL_CARD.md",
+      "bytes": 282,
+      "sha256": "b8043c32e43496b109d49bbc28290e570c064a4ed949962a71a5ff6b2ad647e7"
+    },
+    {
+      "path": "voices/catalogue/sv_SE-alma-medium/MODEL_CARD.md",
+      "bytes": 462,
+      "sha256": "3e4347b72a1d396ca0905470094331fee8dd3a9a641a834466cdbf7812df9396"
+    },
+    {
+      "path": "voices/catalogue/no_NO-talesyntese-medium/MODEL_CARD.md",
+      "bytes": 312,
+      "sha256": "0a03b201db00e1bdc384e2dee4f8710075ef8d32ca3c64ed16782b04d2605f6c"
+    },
+    {
+      "path": "voices/catalogue/id_ID-news_tts-medium/MODEL_CARD.md",
+      "bytes": 316,
+      "sha256": "cc134d8c8fce95d2486a0e5ae60b40c17451a876cf7d36df0f4110589fc40538"
+    },
+    {
+      "path": "voices/catalogue/pl_PL-darkman-medium/MODEL_CARD.md",
+      "bytes": 277,
+      "sha256": "8d860f0cf7dd85e84c923006c5aeaa779a2ff3b1fe89cf499116d93e3a62a4bd"
+    },
+    {
+      "path": "voices/catalogue/bn_BD-google-medium/MODEL_CARD.md",
+      "bytes": 2419,
+      "sha256": "7646ee0bb29179780877708f270b8071fffee4114d880fa3bc28029c1bd44e14"
+    },
+    {
+      "path": "voices/catalogue/sw_CD-lanfrica-medium/MODEL_CARD.md",
+      "bytes": 315,
+      "sha256": "763a444ca0e205ac08bd3bf3a4d3d44da58f56d244a145adf22eb0a863638ab2"
+    },
+    {
+      "path": "voices/catalogue/bg_BG-dimitar-medium/MODEL_CARD.md",
+      "bytes": 282,
+      "sha256": "f7d396772659ed6e277171d19d23e57c502878d01c90d7c51ad6105ac05d2b8e"
+    },
+    {
+      "path": "voices/catalogue/hu_HU-anna-medium/MODEL_CARD.md",
+      "bytes": 278,
+      "sha256": "2134551c09f616ba333640f419267d45aeed5443b53ffde79a11a715737f8546"
+    }
+  ]
+}

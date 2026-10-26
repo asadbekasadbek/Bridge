@@ -1,0 +1,18 @@
+Bridge — subtitle speech and translation
+
+No Bridge account, test login, API key or subscription is required. The interface defaults to Russian. Use the separate “Язык интерфейса Bridge” control in Options, popup or player settings to select English or Uzbek. This changes only Bridge's UI, not subtitle or voice languages, and does not interrupt speech.
+
+1. Open Options using the toolbar popup button “Настроить голос”. Opening settings does not download acoustic models or start inference.
+2. Keep Russian as the result language. In “Язык и голос на компьютере”, click “Установить” on the Denis/Денис voice. One model (about 60 MiB) and its small configuration are downloaded from a pinned Hugging Face revision and checked by size/SHA-256. The other voice is not installed automatically. Alternatively, select a compatible local OS voice.
+3. Click “Послушать”. After voice installation this preview also works offline. Ordinary online videos/captions still require their source website.
+4. Open a public captioned video on a supported platform, enable its captions if needed and press the Bridge subtitle-speech button in the player. YouTube is the easiest starting point.
+5. Open the Bridge gear menu: source language is left, result language right. A caption/translation track must be available. The extension does not perform speech recognition on arbitrary audio.
+6. Switching caption languages may display YouTube's track/settings notification (“Для настройки нажмите на значок”). Bridge must not speak or prepare this UI text. An actual caption displayed alongside the notification should still be spoken.
+7. Test pause, seeking, “Показывать субтитры на видео”, volume and “Приглушать видео во время озвучки”. Short phrase gaps retain attenuation; pause/disable restores original volume.
+8. In Options, remove the installed voice using “Удалить”. It no longer appears as installed. An unavailable voice language shows an unavailable state without downloading another language.
+
+Translation: the main video service supplies its translated captions. Other supported players use a target-language caption track or Chrome's built-in local Translator API when available (Chrome 138+ for this API). The initial language-data download can require a user gesture/network. An unsupported browser/pair is reported; untranslated text is not presented as a translation.
+
+All JS/WASM and third-party license/source notices are packaged. Downloaded .onnx/.json files are pinned acoustic model data, not remote JS/WASM. Subtitle text/audio stay local. No developer telemetry or cloud speech endpoint is used.
+
+Listing demo screenshots show real extension controls with a locally authored demonstration video, not a claim of universal caption/translation support on every live video.

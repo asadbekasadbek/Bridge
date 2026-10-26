@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Bridge — platform fixture</title><style>
+body{margin:0;background:#101521;color:#fff;font:16px Arial}main{max-width:960px;margin:32px auto}#fixture-player{height:540px;position:relative;background:linear-gradient(120deg,#26344e,#121926)}video{width:100%;height:100%;opacity:.04}h1{font-size:24px}.subtitles{position:absolute;bottom:100px;left:30px;right:30px;text-align:center;font-size:24px;pointer-events:none}.native-controls{position:absolute;bottom:12px;left:16px}button{padding:8px;cursor:pointer}[role=menu]{position:absolute;bottom:50px;left:20px;background:#29354c;z-index:20;padding:12px}[role=menu][hidden]{display:none}[role=menuitemradio]{display:block;padding:12px}iframe{width:460px;height:320px;border:0}
+</style></head><body><main><h1>Bridge · проверка площадки</h1><div id="fixture-player"><video muted loop playsinline></video><div class="subtitles captions-line captions-text videoplayer_subtitles vjs-text-track-display" data-purpose="captions-display" data-testid="subtitles" lang="en"></div><div class="native-controls"><button aria-label="Subtitles" aria-haspopup="menu" aria-expanded="false" data-cc-button data-purpose="captions-dropdown-button" data-a-target="player-closed-caption-button" data-testid="subtitles-button" class="videoplayer_btn_subtitles">CC</button></div><div role="menu" hidden></div></div></main><script>
+(() => {
+  const params=new URL(location.href).searchParams, mode=params.get('mode')||'native';
+  if(mode==='embed'){
+    document.querySelector('#fixture-player').replaceWith(Object.assign(document.createElement('iframe'),{src:'https://player.vimeo.com/video/bridge_embed?mode=native'}),Object.assign(document.createElement('iframe'),{src:'https://www.coursera.org/learn/bridge/lecture/embed?mode=native'}));return;
+  }
+  const video=document.querySelector('video'), layer=document.querySelector('.subtitles'), menu=document.querySelector('[role=menu]'), button=document.querySelector('.native-controls button');
+  button.classList.add('captions');
+  const definitions=[['en','English','English must not be spoken with a Russian voice.'],['ru','Русский','Русские субтитры озвучиваются локально.'],['de','Deutsch','Deutsche Untertitel werden lokal vorgelesen.']];
+  const shaka=mode.startsWith('udemy-');
+  const languages=shaka||mode==='missing'||mode==='dom-unknown'||mode==='native-en'?definitions.slice(0,1):definitions;
+  window.fixtureTracks=[];
+  if(mode==='unknown'){const track=video.addTextTrack('captions','CC1','');track.addCue(new VTTCue(0,90,definitions[0][2]));track.mode='disabled';window.fixtureTracks.push(track);}
+  else if(mode==='native'||mode==='native-en'||mode==='shadow') for(const [language,label,text] of languages){const track=video.addTextTrack('subtitles',label,language);track.addCue(new VTTCue(0,90,text));track.mode='disabled';window.fixtureTracks.push(track);}
+  else {
+    layer.textContent=definitions[0][2];
+    if(mode==='dom-unknown')layer.removeAttribute('lang');
+    for(const [language,label,text] of languages){const row=document.createElement('button');row.setAttribute('role','menuitemradio');row.setAttribute('aria-checked',String(language==='en'));row.textContent=label;row.onclick=()=>{for(const other of menu.children)other.setAttribute('aria-checked','false');row.setAttribute('aria-checked','true');layer.lang=language;layer.textContent=text;menu.hidden=true;button.setAttribute('aria-expanded','false');};menu.append(row);}
+  }
+  button.onclick=()=>{menu.hidden=!menu.hidden;button.setAttribute('aria-expanded',String(!menu.hidden));};
+  if(shaka){
+    const player=document.querySelector('#fixture-player'), container=document.createElement('div'), menuWrapper=document.createElement('div');
+    player.setAttribute('data-purpose','shaka-video-player');container.id='shaka-video-container-fixture';container.style.cssText='height:100%;position:relative';
+    video.before(container);container.append(video,layer);menu.before(menuWrapper);menuWrapper.className='video-control-bar-dropdown-module--scrollable-tracks--9qy3Y';menuWrapper.append(menu);
+    menu.setAttribute('role','group');menu.setAttribute('aria-label','Субтитры');
+    layer.className='captions-display-module--captions-cue-text--KMBV6';layer.setAttribute('data-purpose','captions-cue-text');layer.removeAttribute('lang');layer.removeAttribute('data-testid');layer.style.cssText='position:absolute;bottom:100px;left:30px;font-size:24px;opacity:.75';
+    const english=menu.querySelector('button');english.textContent='Английский [авто]';
+    english.onclick=()=>{for(const other of menu.children)other.setAttribute('aria-checked','false');english.setAttribute('aria-checked','true');container.append(layer);layer.textContent='Hello.';menu.hidden=true;button.setAttribute('aria-expanded','true');};
+    const off=document.createElement('button');off.setAttribute('role','menuitemradio');off.textContent='Выключено';off.setAttribute('aria-checked',String(mode==='udemy-late'));menu.prepend(off);
+    off.onclick=()=>{english.setAttribute('aria-checked','false');off.setAttribute('aria-checked','true');layer.remove();menu.hidden=true;};
+    if(mode==='udemy-late'){layer.remove();english.setAttribute('aria-checked','false');}
+    button.onclick=()=>{menu.hidden=!menu.hidden;button.setAttribute('aria-expanded','true');if(!menu.hidden)document.body.dataset.captionMenuOpens=String(Number(document.body.dataset.captionMenuOpens||0)+1);};
+  }
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){menu.hidden=true;button.setAttribute('aria-expanded','false');}});
+  video.src='__BRIDGE_AUDIO__';video.play().catch(()=>{});
+  if(mode==='shadow'){
+    const player=document.querySelector('#fixture-player'), host=document.createElement('div');host.className='shadow-root-container';player.classList.add('vk-vp-root');player.replaceWith(host);
+    const ads=document.createElement('div'), adVideo=document.createElement('video');ads.className='ads-container';ads.style.cssText='position:absolute;inset:-10px;opacity:0;pointer-events:none';adVideo.src=video.src;adVideo.muted=true;ads.append(adVideo);player.append(ads);
+    setTimeout(()=>{const root=host.attachShadow({mode:'open'}),style=document.createElement('style');style.textContent=document.querySelector('style').textContent;root.append(style,player);video.play().catch(()=>{});},500);
+  }
+})();
+</script></body></html>

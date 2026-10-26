@@ -1,0 +1,67 @@
+.bridge-youtube-control{display:inline-flex;position:relative;vertical-align:top;height:100%;align-items:center;margin:0 6px;font-family:Arial,sans-serif}
+.bridge-youtube-control[hidden]{display:none!important}
+/* Keep caption updates available to the reader while hiding only the picture. */
+[data-bridge-hide-subtitles] .ytp-caption-window-container{opacity:0!important;pointer-events:none!important}
+[data-bridge-hide-subtitles] [data-bridge-caption-layer]{opacity:0!important;pointer-events:none!important}
+.bridge-youtube-control.bridge-platform-control{position:fixed;bottom:auto;height:36px;z-index:2147483000;margin:0;pointer-events:auto}
+html.bridge-hide-external-downloaders #all-in-one-downloader-daniel,html.bridge-hide-external-downloaders #all-in-one-downloader{display:none!important;pointer-events:none!important}
+.bridge-youtube-control.bridge-shorts{position:absolute;left:auto;right:12px;bottom:14px;height:auto;max-width:calc(100% - 24px);margin:0;z-index:65;gap:6px;pointer-events:auto}
+.bridge-youtube-control.bridge-shorts .bridge-youtube-toggle{width:36px;height:36px;min-height:36px;max-width:none;padding:0;flex:none}
+.bridge-youtube-control.bridge-shorts .bridge-language-settings{display:inline-flex;align-items:center;justify-content:center;height:36px;width:36px;margin:0;flex:none}
+.bridge-youtube-control.bridge-shorts svg{display:block;width:20px;height:20px;fill:currentColor;pointer-events:none}
+.bridge-youtube-control.bridge-shorts .bridge-language-panel{left:auto;right:0}
+.bridge-youtube-control.bridge-shorts .bridge-youtube-notice{display:none!important}
+.bridge-youtube-control.bridge-attention .bridge-language-settings{border-color:#ffc36b;box-shadow:0 0 0 1px #ffc36b55}
+.bridge-youtube-control .bridge-youtube-toggle{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;max-width:190px;min-height:32px;padding:0 10px;border:1px solid #ffffff55;border-radius:7px;background:#202838e8;color:#fff;font:600 12px/1.3 Arial,sans-serif;cursor:pointer;white-space:nowrap;text-shadow:none;letter-spacing:0}
+.bridge-youtube-control .bridge-youtube-toggle:hover{background:#354257}
+.bridge-youtube-control[data-enabled=true] .bridge-youtube-toggle{background:#3856f6;border-color:#8b9bff}
+.bridge-youtube-control .bridge-youtube-toggle:focus-visible{outline:2px solid #b4c0ff;outline-offset:3px}
+.bridge-youtube-control .bridge-youtube-toggle:disabled{opacity:.65;cursor:wait}
+.bridge-youtube-control .bridge-language-settings{box-sizing:border-box;width:32px;height:32px;margin-left:5px;border:1px solid #ffffff44;border-radius:7px;background:#202838e8;color:#fff;font:22px/1 Arial,sans-serif;cursor:pointer;text-shadow:none}
+.bridge-youtube-control .bridge-language-settings:hover,.bridge-youtube-control .bridge-language-settings[aria-expanded=true]{background:#354257}
+.bridge-youtube-control .bridge-language-settings:focus-visible{outline:2px solid #b4c0ff;outline-offset:3px}
+.bridge-youtube-control .bridge-language-panel{position:absolute;right:0;bottom:calc(100% + 12px);z-index:100;box-sizing:border-box;width:410px;max-width:calc(100vw - 40px);padding:20px;border:1px solid #ffffff33;border-radius:16px;background:#171b24fa;box-shadow:0 12px 40px #0007;color:#f3f5ff;font:400 13px/1.5 Arial,sans-serif;text-shadow:none;white-space:normal;letter-spacing:0;cursor:default;text-align:left}
+.bridge-youtube-control .bridge-language-panel[hidden]{display:none!important}
+.bridge-language-panel .bridge-panel-title{position:sticky;top:0;z-index:2;margin:-20px -20px 18px;padding:16px 20px;background:#171b24;box-shadow:0 -24px 0 #171b24;font:500 20px/1.3 Arial,sans-serif}
+.bridge-youtube-control .bridge-language-panel{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.bridge-language-panel .bridge-mix-section{margin-top:16px;padding-top:16px;border-top:1px solid #ffffff22}
+.bridge-language-panel .bridge-slider-label{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.bridge-language-panel .bridge-slider-label label{margin:0;font-size:12px}
+.bridge-language-panel .bridge-slider-label output{display:inline;min-height:0;width:auto;border:0;padding:0;background:none;font-weight:600;font-size:13px}
+.bridge-language-panel input[type=range]{display:block;box-sizing:border-box;width:100%;height:20px;margin:0;padding:0;accent-color:#8bb8fa;cursor:pointer}
+.bridge-language-panel input[type=range]:disabled{opacity:.45;cursor:default}
+.bridge-language-panel .bridge-mix-toggle{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:20px 0;color:#e0e6f5;font-size:12px;cursor:pointer}
+.bridge-language-panel .bridge-mix-toggle input{appearance:none;flex:none;position:relative;width:42px;height:25px;border:1px solid #ffffff22;border-radius:20px;background:#4c5260;cursor:pointer}
+.bridge-language-panel .bridge-mix-toggle input:checked{background:#8bb8fa}
+.bridge-language-panel .bridge-mix-toggle input::after{content:"";position:absolute;left:3px;top:3px;width:17px;height:17px;border-radius:50%;background:#171b24;transition:transform .15s}
+.bridge-language-panel .bridge-mix-toggle input:checked::after{transform:translateX(17px)}
+.bridge-language-panel input:focus-visible{outline:2px solid #9cacff;outline-offset:3px}
+.bridge-language-panel .bridge-language-pair{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:8px;align-items:end}
+.bridge-language-panel label{display:block;margin:0 0 8px;color:#afb7c9;font:400 11px/1.4 Arial,sans-serif;white-space:normal}
+.bridge-language-panel output,.bridge-language-panel select{display:block;box-sizing:border-box;width:100%;min-height:44px;padding:11px 9px;border:1px solid #ffffff36;border-radius:9px;background:#ffffff09;color:#f3f5ff;font:400 14px/1.35 Arial,sans-serif;text-shadow:none;white-space:normal}
+.bridge-language-panel select{height:44px;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;color-scheme:dark}
+.bridge-language-panel select:focus-visible{outline:2px solid #9cacff;outline-offset:2px}
+.bridge-language-panel select:disabled{opacity:.65;cursor:wait}
+.bridge-language-panel .bridge-language-arrow{padding-bottom:9px;text-align:center;font:26px/1 Arial,sans-serif;color:#b6bfce}
+.bridge-language-panel .bridge-mode-hint{margin:12px 0 0;color:#aab4c8;font:400 11px/1.5 Arial,sans-serif}
+.bridge-language-panel .bridge-ui-language{margin:0 0 18px;padding:0 0 16px;border-bottom:1px solid #ffffff22}.bridge-language-panel .bridge-ui-language-help{margin:8px 0 0;color:#aab4c8;font:400 11px/1.5 Arial,sans-serif}
+.bridge-language-panel .bridge-panel-status{margin:16px 0 12px;padding-top:12px;border-top:1px solid #ffffff22;color:#e0e6f5;font:400 12px/1.5 Arial,sans-serif}
+.bridge-language-panel .bridge-retry{padding:9px 12px;border:1px solid #9bacff66;border-radius:8px;background:#3856f6;color:#fff;font:600 12px/1.4 Arial,sans-serif;cursor:pointer}
+.bridge-youtube-control.bridge-panel-open .bridge-youtube-notice{display:none!important}
+.bridge-youtube-control .bridge-youtube-notice{display:none;position:absolute;bottom:calc(100% + 10px);right:0;box-sizing:border-box;width:260px;max-width:75vw;padding:12px 14px;border:1px solid #ffffff22;border-radius:9px;background:#171d2af5;box-shadow:0 4px 16px #0005;color:#edf0ff;font:400 12px/1.65 Arial,sans-serif;text-shadow:none;white-space:normal;pointer-events:none;z-index:80}
+.bridge-youtube-control .bridge-youtube-notice[hidden]{display:none!important}
+.bridge-youtube-control.bridge-attention .bridge-youtube-notice{display:block}
+@media(max-width:600px){.bridge-youtube-control{margin:0 2px}.bridge-youtube-control .bridge-youtube-toggle{max-width:150px;min-height:28px;padding:0 6px;font-size:10px}}
+@media(max-width:430px){.bridge-youtube-control .bridge-language-panel{padding:16px;width:340px}.bridge-language-panel .bridge-panel-title{margin:-16px -16px 18px;padding:14px 16px}.bridge-language-panel .bridge-language-pair{grid-template-columns:minmax(0,1fr) 18px minmax(0,1.05fr);gap:5px}.bridge-language-panel output,.bridge-language-panel select{font-size:12px;padding:11px 6px}.bridge-youtube-control .bridge-language-settings{width:28px;height:28px;font-size:20px}}
+
+.bridge-voice-packs { margin-top: 14px; padding-top: 12px; border-top: 1px solid #7d84904d; }
+.bridge-voice-packs p { font-size: 13px; line-height: 1.5; margin: 8px 0; }
+.bridge-voice-packs .bridge-pack-action { display: inline-block; max-width: 100%; padding: 9px 12px; margin: 4px 4px 4px 0; border: 1px solid #697cff; border-radius: 9px; background: #4056eb; color: #fff; font: inherit; font-size: 13px; line-height: 1.4; cursor: pointer; white-space: normal; }
+.bridge-voice-packs .bridge-pack-action[hidden] { display: none !important; }
+.bridge-voice-packs .bridge-pack-action:disabled { opacity: .6; cursor: progress; }
+
+.bridge-voice-packs .bridge-pack-card { border: 1px solid #80889b40; border-radius: 10px; padding: 10px; margin: 8px 0; overflow-wrap: anywhere; }
+.bridge-voice-packs details > summary { cursor: pointer; padding: 7px 0; font-size: 13px; }
+.bridge-voice-packs .bridge-pack-card details { font-size: 12px; }
+.bridge-voice-packs label { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.bridge-voice-packs input[data-bridge-resource-mode] { width: 18px; height: 18px; margin: 0; flex: 0 0 18px; }
