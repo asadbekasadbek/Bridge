@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Bridge — Subtitle Voice & Translation"
+  },
+  "extensionDescription": {
+    "message": "Read video subtitles aloud and translate them with local voices, language controls and original-audio ducking."
+  },
+  "actionTitle": {
+    "message": "Bridge — voice settings"
+  }
+}

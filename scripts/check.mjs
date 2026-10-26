@@ -4,11 +4,14 @@ import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import "../extension/platforms/catalogue.js";
 import { prepareVendor } from "./prepare-vendor.mjs";
+import { readManifestLocales } from "./store-locales.mjs";
 
 await prepareVendor({ check: true });
 
 const root = new URL("../extension/", import.meta.url);
-const manifest = JSON.parse(await readFile(new URL("manifest.json", root), "utf8"));
+const { manifest, locales } = await readManifestLocales(root);
+assert.equal(manifest.default_locale, "en");
+assert.deepEqual(locales.map(item => item.locale), ["en", "ru"]);
 const project = JSON.parse(await readFile(new URL("../package.json", root), "utf8"));
 assert.equal(manifest.version, project.version, "Версии проекта и расширения должны совпадать");
 assert.equal(manifest.manifest_version, 3);

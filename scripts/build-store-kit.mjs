@@ -4,16 +4,19 @@ import { cp, copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/p
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join, relative } from "node:path";
+import { readManifestLocales } from "./store-locales.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const source = join(root, "distribution/chrome-web-store");
-const manifest = JSON.parse(await readFile(join(root, "extension/manifest.json"), "utf8"));
+const { manifest, locales } = await readManifestLocales(new URL("../extension/", import.meta.url));
 const metadata = JSON.parse(await readFile(join(source, "metadata.json"), "utf8"));
-const description = (await readFile(join(source, "listing-ru.txt"), "utf8")).trim();
+const listings = await Promise.all(locales.map(async item => ({ ...item, description: (await readFile(join(source, `listing-${item.locale}.txt`), "utf8")).trim() })));
+const primary = listings.find(item => item.locale === manifest.default_locale);
 const reviewer = (await readFile(join(source, "reviewer-instructions-en.txt"), "utf8")).trim();
 const policy = (await readFile(join(source, "privacy-policy.md"), "utf8")).trim();
-assert.ok(manifest.name.length <= 75 && manifest.description.length <= 132);
-assert.ok(description.length >= 100 && description.length <= 16000);
+for (const listing of listings) assert.ok(listing.description.length >= 100 && listing.description.length <= 16000, `${listing.locale}: detailed description length`);
+assert.deepEqual(metadata.locales, listings.map(item => item.locale));
+assert.equal(metadata.locale, manifest.default_locale);
 assert.equal(metadata.visibility, "Public");
 for (const script of ["check.mjs", "package.mjs"]) execFileSync(process.execPath, [join(root, "scripts", script)], { cwd: root, stdio: "inherit" });
 
@@ -25,10 +28,14 @@ for (const folder of ["01-upload", "02-listing", "03-images", "04-review", "05-p
 const upload = `bridge-${manifest.version}-lite.zip`;
 for (const file of [upload, `${upload}.sha256`]) await copyFile(join(root, "dist", file), join(directory, "01-upload", file));
 await cp(join(source, "assets"), join(directory, "03-images"), { recursive: true });
-await writeFile(join(directory, "02-listing/title.txt"), `${manifest.name}\n`);
-await writeFile(join(directory, "02-listing/short-description.txt"), `${manifest.description}\n`);
-await writeFile(join(directory, "02-listing/description-ru.txt"), `${description}\n`);
-await writeFile(join(directory, "02-listing/metadata.json"), JSON.stringify({ version: manifest.version, title: manifest.name, shortDescription: manifest.description, ...metadata }, null, 2) + "\n");
+for (const { locale, title, shortDescription, description } of listings) {
+  await writeFile(join(directory, `02-listing/title-${locale}.txt`), `${title}\n`);
+  await writeFile(join(directory, `02-listing/short-description-${locale}.txt`), `${shortDescription}\n`);
+  await writeFile(join(directory, `02-listing/description-${locale}.txt`), `${description}\n`);
+}
+await writeFile(join(directory, "02-listing/title.txt"), `${primary.title}\n`);
+await writeFile(join(directory, "02-listing/short-description.txt"), `${primary.shortDescription}\n`);
+await writeFile(join(directory, "02-listing/metadata.json"), JSON.stringify({ version: manifest.version, title: primary.title, shortDescription: primary.shortDescription, ...metadata, localizedListings: listings.map(({ locale, title, shortDescription }) => ({ locale, title, shortDescription, descriptionFile: `description-${locale}.txt` })) }, null, 2) + "\n");
 await copyFile(join(source, "discovery-notes-ru.md"), join(directory, "02-listing/discovery-notes-ru.md"));
 await writeFile(join(directory, "04-review/reviewer-instructions-en.txt"), `${reviewer}\n`);
 const dataNames = { websiteContent: "Website content", webHistory: "Web history", userActivity: "User activity", personallyIdentifiableInformation: "Personally identifiable information", healthInformation: "Health information", financialAndPaymentInformation: "Financial and payment information", authenticationInformation: "Authentication information", personalCommunications: "Personal communications", location: "Location" };
@@ -60,8 +67,9 @@ const screenshotInfo = [
   ["05-personal-settings.png", "05 · Настройки и поддерживаемые площадки"]
 ];
 const replacements = {
-  VERSION: manifest.version, TITLE: escape(manifest.name), SHORT: escape(manifest.description), SHORT_LENGTH: manifest.description.length,
-  DESCRIPTION: escape(description), PURPOSE: escape(metadata.singlePurpose), REMOTE: escape(metadata.remoteCode.explanation),
+  VERSION: manifest.version,
+  LISTINGS: listings.map(({ locale, title, shortDescription, description }) => `<div id="listing-${locale}"><h3>${locale === "en" ? "English (en) — основной язык" : "Русский (ru) — перевод карточки"}</h3><div class="grid"><div class="field"><label for="title-${locale}">Название / Title</label><textarea id="title-${locale}" lang="${locale}" rows="2" readonly>${escape(title)}</textarea><button data-copy="title-${locale}">Скопировать</button></div><div class="field"><label for="short-${locale}">Короткое описание / Summary · ${shortDescription.length} символов</label><textarea id="short-${locale}" lang="${locale}" rows="2" readonly>${escape(shortDescription)}</textarea><button data-copy="short-${locale}">Скопировать</button></div></div><div class="field"><label for="description-${locale}">Подробное описание / Detailed description</label><textarea id="description-${locale}" lang="${locale}" rows="15" readonly>${escape(description)}</textarea><button data-copy="description-${locale}">Скопировать описание ${locale.toUpperCase()}</button></div></div>`).join(""),
+  PURPOSE: escape(metadata.singlePurpose), REMOTE: escape(metadata.remoteCode.explanation),
   DATA_USE: escape(metadata.dataUse.explanation), REVIEWER: escape(reviewer), DATE: "26 октября 2026 года",
   SCREENSHOTS: screenshotInfo.map(([file, caption]) => `<a href="03-images/screenshots/${file}" target="_blank"><img src="03-images/screenshots/${file}" alt="${caption}"><span>${caption}</span></a>`).join(""),
   PERMISSIONS: Object.entries(metadata.permissions).map(([name, value]) => `<details><summary>${name === "hostAccess" ? "Host access / доступ к видеоплеерам" : name}</summary><div class="field"><textarea id="permission-${name}" rows="6" readonly>${escape(value)}</textarea><button data-copy="permission-${name}">Скопировать</button></div></details>`).join(""),
@@ -91,7 +99,8 @@ const archiveEntries = execFileSync("unzip", ["-Z1", join(directory, "01-upload"
 assert.ok(archiveEntries.includes("manifest.json")); assert.ok(!archiveEntries.some(file => file.endsWith(".onnx")));
 const archiveManifest = JSON.parse(execFileSync("unzip", ["-p", join(directory, "01-upload", upload), "manifest.json"], { encoding: "utf8" }));
 assert.equal(archiveManifest.version, manifest.version); assert.equal(archiveManifest.name, manifest.name);
-const report = { version: manifest.version, title: manifest.name, shortDescriptionLength: manifest.description.length, detailedDescriptionLength: description.length, extensionZip: `01-upload/${upload}`, manifestAtZipRoot: true, acousticModelsBundled: false, images, publicationPerformed: false, requiredPublisherActions: ["Google publisher account/contact details", "public HTTPS privacy-policy URL", "dashboard upload and review submission"], sourcesChecked: metadata.sources };
+for (const { locale } of listings) assert.ok(archiveEntries.includes(`_locales/${locale}/messages.json`), `${locale}: locale missing from upload ZIP`);
+const report = { version: manifest.version, title: primary.title, defaultLocale: manifest.default_locale, locales: listings.map(({ locale, title, shortDescription, description }) => ({ locale, title, shortDescriptionLength: shortDescription.length, detailedDescriptionLength: description.length })), shortDescriptionLength: primary.shortDescription.length, detailedDescriptionLength: primary.description.length, extensionZip: `01-upload/${upload}`, manifestAtZipRoot: true, acousticModelsBundled: false, images, publicationPerformed: false, requiredPublisherActions: ["Google publisher account/contact details", "public HTTPS privacy-policy URL", "dashboard upload and review submission"], sourcesChecked: metadata.sources };
 await writeFile(join(directory, "validation-report.json"), JSON.stringify(report, null, 2) + "\n");
 async function files(folder) {
   const result = [];

@@ -1,11 +1,20 @@
 {
-  "locale": "ru",
+  "locale": "en",
   "category": "Accessibility",
   "categoryRu": "Специальные возможности",
   "visibility": "Public",
   "price": "Free",
   "singlePurpose": "Озвучивание доступных субтитров видео выбранным локальным голосом на поддерживаемых площадках, включая выбор доступной языковой дорожки или перевода.",
-  "searchPhrasesInternalOnly": ["озвучка субтитров", "перевод субтитров", "голос для видео", "локальная озвучка", "читать субтитры вслух", "озвучка учебных видео", "text to speech", "subtitle reader"],
+  "searchPhrasesInternalOnly": [
+    "озвучка субтитров",
+    "перевод субтитров",
+    "голос для видео",
+    "локальная озвучка",
+    "читать субтитры вслух",
+    "озвучка учебных видео",
+    "text to speech",
+    "subtitle reader"
+  ],
   "permissions": {
     "storage": "Stores the chosen interface language, source/target languages, local voice, speech rate, volume and player preferences in chrome.storage.local. No Chrome Sync, account or remote settings service is used. Installed voice model data remains in the extension's local IndexedDB.",
     "tts": "Lists and invokes compatible on-device operating-system voices for subtitle speech and voice previews. Remote voices and voices from other extensions are filtered out. Optional Piper voices use the packaged local WASM runtime.",
@@ -41,6 +50,11 @@
     "localData": "https://developer.chrome.com/docs/webstore/program-policies/user-data-faq",
     "category": "https://developer.chrome.com/docs/webstore/best-practices",
     "discovery": "https://developer.chrome.com/docs/webstore/discovery",
-    "publishing": "https://developer.chrome.com/docs/webstore/publish"
-  }
+    "publishing": "https://developer.chrome.com/docs/webstore/publish",
+    "localization": "https://developer.chrome.com/docs/extensions/reference/api/i18n"
+  },
+  "locales": [
+    "en",
+    "ru"
+  ]
 }

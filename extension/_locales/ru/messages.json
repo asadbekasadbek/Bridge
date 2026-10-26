@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Bridge — озвучка и перевод субтитров"
+  },
+  "extensionDescription": {
+    "message": "Озвучка и перевод субтитров YouTube и учебных видео. Локальные голоса, выбор языка и приглушение оригинала."
+  },
+  "actionTitle": {
+    "message": "Bridge — настройки голоса"
+  }
+}

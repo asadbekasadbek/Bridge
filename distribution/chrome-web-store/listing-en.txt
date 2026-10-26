@@ -1,0 +1,27 @@
+Bridge reads available video subtitles aloud with a voice you choose, helping you listen to translated captions without reading every line. Use it for captioned videos, lectures and lessons.
+
+LISTEN AT YOUR OWN PACE
+Choose your result language, install the voice you need and start subtitle speech using the button in the player. You can also use a compatible local operating-system voice. No Bridge account or API key is required.
+
+SPEECH RUNS ON YOUR COMPUTER
+Speech is synthesized locally. Subtitle text and audio are not sent to the developer or a cloud speech service. The catalogue contains 53 voice packs for 49 languages. Each voice is installed separately, with its size, source and terms shown before download. Other languages are not downloaded automatically. You can remove an installed pack and install it again later.
+
+CONTROLS IN THE VIDEO PLAYER
+• Choose English, Russian or Uzbek for Bridge's buttons and settings.
+• Select the source language and result language separately.
+• Choose automatic or manual male/female voice selection where suitable voices are available.
+• Adjust speech speed and volume.
+• Lower the original audio smoothly during each spoken phrase.
+• Stop speech when you pause or seek.
+• Hide the subtitle text while keeping speech enabled.
+• Save your preferences and preview a voice with sample text.
+
+TRANSLATION AND AVAILABLE TRACKS
+On YouTube, the website provides translated captions. In other supported players, Bridge selects an available caption track in your chosen language. If no such track is available, it uses Chrome's local Translator API in Chrome 138 or later, when the browser and language pair support it. The first voice or translation-data download requires an internet connection. Access to the video and its captions still depends on the website.
+
+Other supported services include TED, Vimeo, Udemy and Coursera. The listing screenshot shows the full supported-platform list. You need your own access to restricted content.
+
+BEFORE YOU INSTALL
+Bridge works with available text subtitles. It does not transcribe speech from arbitrary videos. Not every language, translation pair or player is supported. Voice packs have different usage terms, available in their cards before installation. After a voice pack is installed, the voice preview works offline; this does not make online video websites available offline.
+
+Memory-saving mode is enabled by default: a limited cache, one acoustic model in memory and engine release after inactivity. Neural speech speed depends on your computer. A local operating-system voice may be a lighter alternative.
