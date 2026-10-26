@@ -2,3 +2,6 @@
 node_modules/
 test-results/
 dist/
+
+# Voice weights are downloaded separately; keep local test/archive models out of Git.
+*.onnx

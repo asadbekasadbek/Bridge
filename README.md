@@ -78,6 +78,8 @@ npm run store:kit
 
 Outputs: `dist/bridge-0.18.2-lite.zip` and `dist/bridge-chrome-web-store-0.18.2.zip`. Build outputs are ignored by Git; upload release files separately if you want to distribute them through Releases and count their downloads.
 
+Voice weights (`*.onnx`) are excluded from Git. The extension downloads chosen voices through its installer; normal checks and packaging do not require archived weights. Optional real-model tests and screenshot recapture need local test models; see [archive setup notes](archive/README.md).
+
 The store kit contains English and Russian titles, short descriptions and full descriptions, five screenshots, icons, promotional images, review instructions and a privacy-policy template. Extract it and open `START_HERE.html`. Select **English** and **Russian** separately in the store dashboard and paste the corresponding text. The package includes `_locales/en` and `_locales/ru` so both listing languages are available. Detailed instructions: [Chrome Web Store publishing guide](distribution/chrome-web-store/publishing-guide-ru.md).
 
 The publisher supplies their account/contact details, hosts the privacy policy at a public HTTPS URL, uploads the extension ZIP and submits it for review. Publication and search ranking are not guaranteed.
@@ -160,6 +162,8 @@ npm run store:kit
 ```
 
 Результат: `dist/bridge-0.18.2-lite.zip` и `dist/bridge-chrome-web-store-0.18.2.zip`. Каталог `dist` исключён из Git. Для распространения через Releases и подсчёта скачиваний файлы сборки загружаются в релиз отдельно.
+
+Голосовые веса (`*.onnx`) исключены из Git. Расширение скачивает выбранные голоса через свой установщик; обычные проверки и сборка не требуют архивных весов. Для необязательных проверок настоящих моделей и пересъёмки скриншотов нужны локальные тестовые модели: [пояснения к архиву](archive/README.md).
 
 Комплект магазина содержит английские и русские названия, короткие и полные описания, пять скриншотов, иконки, баннеры, инструкцию проверяющему и шаблон политики. Распакуйте комплект и откройте `START_HERE.html`. В кабинете магазина по очереди выберите **English** и **Russian**, вставляя соответствующий текст. В пакете есть `_locales/en` и `_locales/ru`, поэтому карточке доступны оба языка. [Подробная инструкция](distribution/chrome-web-store/publishing-guide-ru.md).
 
